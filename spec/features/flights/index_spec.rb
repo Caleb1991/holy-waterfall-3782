@@ -39,4 +39,9 @@ RSpec.describe 'Flights Index Page' do
     expect(page).to have_content(@airline_2.name)
     expect(page).to_not have_content(@airline_3.name)
   end
+
+  it 'shows all the passengers on that flight' do
+    expect(page).to have_content(@passenger_1.name, count: 2)
+    expect(page).to have_content(@passenger_2.name, count: 1)
+  end
 end
