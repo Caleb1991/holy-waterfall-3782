@@ -11,8 +11,4 @@ class Flight < ApplicationRecord
   def airline_name
     airline.name
   end
-
-  def passenger_names
-    passengers.name
-  end
 end

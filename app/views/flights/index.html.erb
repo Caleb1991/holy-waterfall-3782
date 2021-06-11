@@ -1,3 +1,7 @@
 <% @flights.each do |flight| %>
-  <p>Airline: <%= flight.airline_name %>, Flight Number: <%= flight.number %> Passengers: <% flight.passengers.each do |passenger| %> <%= passenger.name %> <%=link_to "Remove #{passenger.name} From Flight", "/passenger_flights/#{passenger.id}/destroy?flight_id=#{flight.id}", method: :delete, local: true %> <% end %></p>
+  <p>Airline: <%= flight.airline_name %>, Flight Number: <%= flight.number %>
+     <br>Passengers: <% flight.passengers.each do |passenger| %>
+      <p><%= passenger.name %></p>
+      <%=link_to "Remove #{passenger.name} From Flight", "/passenger_flights/#{passenger.id}/destroy?flight_id=#{flight.id}", method: :delete, local: true %>
+    <% end %></p>
 <% end %>
