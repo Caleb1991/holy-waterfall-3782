@@ -15,18 +15,12 @@ RSpec.describe 'Flights Index Page' do
     @passenger_2 = Passenger.create!(name: 'Huey', age: 33)
 
     @passenger_flight_1 = PassengerFlight.create!(passenger_id: @passenger_1.id, flight_id: @flight_1.id)
-    @passenger_flight_1 = PassengerFlight.create!(passenger_id: @passenger_1.id, flight_id: @flight_2.id)
-    @passenger_flight_1 = PassengerFlight.create!(passenger_id: @passenger_2.id, flight_id: @flight_1.id)
+    @passenger_flight_2 = PassengerFlight.create!(passenger_id: @passenger_1.id, flight_id: @flight_2.id)
+    @passenger_flight_3 = PassengerFlight.create!(passenger_id: @passenger_2.id, flight_id: @flight_1.id)
 
     visit '/flights'
   end
-#   User Story 1, Flights Index Page
-#
-# As a visitor
-# When I visit the flights index page
-# I see a list of all flight numbers
-# And next to each flight number I see the name of the Airline of that flight
-# And under each flight number I see the names of all that flight's passengers
+
   it 'shows all flight numbers' do
     expect(page).to have_content(@flight_1.number)
     expect(page).to have_content(@flight_2.number)
@@ -41,7 +35,21 @@ RSpec.describe 'Flights Index Page' do
   end
 
   it 'shows all the passengers on that flight' do
-    expect(page).to have_content(@passenger_1.name, count: 2)
-    expect(page).to have_content(@passenger_2.name, count: 1)
+    expect(page).to have_content(@passenger_1.name, count: 4)
+    expect(page).to have_content(@passenger_2.name, count: 2)
+  end
+
+  it 'has a link to remove a passenger' do
+    expect(page).to have_link("Remove #{@passenger_1.name} From Flight")
+  end
+
+  it 'can remove a passenger from a flight' do
+    expect(page).to have_content(@passenger_2.name)
+
+    click_on "Remove #{@passenger_2.name} From Flight"
+
+    expect(current_path).to eq('/flights')
+
+    expect(page).to_not have_content(@passenger_2.name)
   end
 end
