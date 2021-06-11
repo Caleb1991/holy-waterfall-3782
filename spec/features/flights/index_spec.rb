@@ -4,6 +4,7 @@ RSpec.describe 'Flights Index Page' do
   before :each do
     @airline_1 = Airline.create!(name: 'Frontier')
     @airline_2 = Airline.create!(name: 'Southwest')
+    @airline_3 = Airline.create!(name: 'American')
 
     @flight_1 = @airline_1.flights.create!(number: '1324', date: '09/08/07', departure_city: 'Denver', arrival_city: 'Portland')
     @flight_2 = @airline_1.flights.create!(number: '3124', date: '09/08/07', departure_city: 'Denver', arrival_city: 'Los Angeles')
@@ -31,5 +32,11 @@ RSpec.describe 'Flights Index Page' do
     expect(page).to have_content(@flight_2.number)
     expect(page).to have_content(@flight_3.number)
     expect(page).to have_content(@flight_4.number)
+  end
+
+  it 'shows what airline that flight is associated with' do
+    expect(page).to have_content(@airline_1.name)
+    expect(page).to have_content(@airline_2.name)
+    expect(page).to_not have_content(@airline_3.name)
   end
 end
