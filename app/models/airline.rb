@@ -8,9 +8,8 @@ class Airline < ApplicationRecord
 
   def frequent_fliers
     passengers.joins(:flights)
-      .select('passengers.*')
       .group('passengers.id')
-      .select('count(flights.id) as total_flights')
+      .select('passengers.*, count(flights.id) as total_flights')
       .order(total_flights: :desc)
       .where('passengers.age >= ?', 18)
       .distinct
