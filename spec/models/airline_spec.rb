@@ -39,5 +39,11 @@ RSpec.describe Airline, type: :model do
         expect(@airline_1.adult_passengers).to eq([@passenger_1, @passenger_4, @passenger_5])
       end
     end
+
+    describe '#frequent_fliers' do
+      it 'orders passengers by most flights taken with taht airline desc' do
+        expect(@airline_1.frequent_fliers).to eq([@passenger_1, @passenger_4, @passenger_5])
+      end
+    end
   end
 end
